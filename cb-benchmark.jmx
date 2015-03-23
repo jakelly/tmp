@@ -972,7 +972,7 @@ if (orders &gt; 0) {
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Category Product browsing" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Category Product browsing" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1210,7 +1210,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Product browsing and adding items to the cart" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Product browsing and adding items to the cart" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1246,13 +1246,13 @@ vars.put(&quot;simple_product_2_url_key&quot;, simpleList.get(&quot;url_key&quot
 vars.put(&quot;simple_product_2_name&quot;, simpleList.get(&quot;title&quot;));
 vars.put(&quot;simple_product_2_id&quot;, simpleList.get(&quot;id&quot;));
 
-number = (int)(Math.random() * props.get(&quot;configurable_products_list&quot;).size());
-configurableList = props.get(&quot;configurable_products_list&quot;).get(number);
-vars.put(&quot;configurable_product_1_url_key&quot;, configurableList.get(&quot;url_key&quot;));
-vars.put(&quot;configurable_product_1_name&quot;, configurableList.get(&quot;title&quot;));
-vars.put(&quot;configurable_product_1_id&quot;, configurableList.get(&quot;id&quot;));
-vars.put(&quot;configurable_attribute_id&quot;, configurableList.get(&quot;attribute_id&quot;));
-vars.put(&quot;configurable_option_id&quot;, configurableList.get(&quot;attribute_option_id&quot;));
+//number = (int)(Math.random() * props.get(&quot;configurable_products_list&quot;).size());
+//configurableList = props.get(&quot;configurable_products_list&quot;).get(number);
+//vars.put(&quot;configurable_product_1_url_key&quot;, configurableList.get(&quot;url_key&quot;));
+//vars.put(&quot;configurable_product_1_name&quot;, configurableList.get(&quot;title&quot;));
+//vars.put(&quot;configurable_product_1_id&quot;, configurableList.get(&quot;id&quot;));
+//vars.put(&quot;configurable_attribute_id&quot;, configurableList.get(&quot;attribute_id&quot;));
+//vars.put(&quot;configurable_option_id&quot;, configurableList.get(&quot;attribute_option_id&quot;));
 
 vars.put(&quot;category_url_key&quot;, props.get(&quot;category_url_key&quot;));
 vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stringProp>
@@ -1333,7 +1333,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_1_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_1_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1346,8 +1346,8 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1254853024">&lt;title&gt;${simple_product_1_name}</stringProp>
-              <stringProp name="-379053380">&lt;span class=&quot;value&quot;&gt;In stock&lt;/span&gt;</stringProp>
+              <stringProp name="491345365">&lt;title&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
+              <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1429,7 +1429,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-713727977">${simple_product_1_name} was added to your shopping cart.</stringProp>
+              <stringProp name="170585713">${simple_product_1_name}&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1445,17 +1445,6 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
             <intProp name="Assertion.test_type">6</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion: Product count" enabled="true">
-            <boolProp name="XPath.negate">false</boolProp>
-            <stringProp name="XPath.xpath">count(//*[@id=&apos;shopping-cart-table&apos;]/tbody/tr)=1</stringProp>
-            <boolProp name="XPath.validate">false</boolProp>
-            <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
-            <boolProp name="XPath.namespace">false</boolProp>
-            <boolProp name="XPath.show_warnings">true</boolProp>
-            <boolProp name="XPath.report_errors">true</boolProp>
-          </XPathAssertion>
-          <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Simple Product 2 View(BrowsAddToCart)" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -1467,7 +1456,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_2_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_2_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1480,8 +1469,8 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="2142356705">&lt;title&gt;${simple_product_2_name}</stringProp>
-              <stringProp name="-379053380">&lt;span class=&quot;value&quot;&gt;In stock&lt;/span&gt;</stringProp>
+              <stringProp name="-1316109098">&lt;title&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
+              <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1563,7 +1552,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="747852022">${simple_product_2_name} was added to your shopping cart.</stringProp>
+              <stringProp name="1196077712">${simple_product_2_name}&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1579,19 +1568,8 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
             <intProp name="Assertion.test_type">6</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion: Product count" enabled="true">
-            <boolProp name="XPath.negate">false</boolProp>
-            <stringProp name="XPath.xpath">count(//*[@id=&apos;shopping-cart-table&apos;]/tbody/tr)=2</stringProp>
-            <boolProp name="XPath.validate">false</boolProp>
-            <boolProp name="XPath.whitespace">false</boolProp>
-            <boolProp name="XPath.tolerant">true</boolProp>
-            <boolProp name="XPath.namespace">false</boolProp>
-            <boolProp name="XPath.show_warnings">true</boolProp>
-            <boolProp name="XPath.report_errors">true</boolProp>
-          </XPathAssertion>
-          <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 View(BrowsAddToCart)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 View(BrowsAddToCart)" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1645,7 +1623,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 Add To Cart(BrowsAddToCart)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 Add To Cart(BrowsAddToCart)" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="form_key" elementType="HTTPArgument">
@@ -1889,7 +1867,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_1_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_1_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2023,7 +2001,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_2_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_2_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2998,7 +2976,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_1_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_1_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3132,7 +3110,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${base_path}${simple_product_2_url_key}${url_suffix}</stringProp>
+          <stringProp name="HTTPSampler.path">${simple_product_2_url_key}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
