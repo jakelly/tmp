@@ -298,8 +298,8 @@ props.put(&quot;category_name&quot;, vars.get(&quot;category_name&quot;));</stri
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor: Extract product url keys" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">simple_products_url_keys</stringProp>
-            <stringProp name="RegexExtractor.regex">&lt;h2 class=&quot;product-name&quot;&gt;.+?${base_path}(index.php/)?(grill.*)${url_suffix}&quot; title=&quot;.*&quot;</stringProp>
-            <stringProp name="RegexExtractor.template">$2$</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;h3 class=&quot;product-name&quot;&gt;(.*)&lt;a class=&quot;product-info-link&quot; href=&quot;http(.*)/(.*)/&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$3$</stringProp>
             <stringProp name="RegexExtractor.default"></stringProp>
             <stringProp name="RegexExtractor.match_number">-1</stringProp>
           </RegexExtractor>
@@ -970,7 +970,7 @@ if (orders &gt; 0) {
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Category Product browsing" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Category Product browsing" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1004,10 +1004,10 @@ simpleList = props.get(&quot;simple_products_list&quot;).get(number1);
 vars.put(&quot;simple_product_2_url_key&quot;, simpleList.get(&quot;url_key&quot;));
 vars.put(&quot;simple_product_2_name&quot;, simpleList.get(&quot;title&quot;));
 
-number = (int)(Math.random() * props.get(&quot;configurable_products_list&quot;).size());
-configurableList = props.get(&quot;configurable_products_list&quot;).get(number);
-vars.put(&quot;configurable_product_1_url_key&quot;, configurableList.get(&quot;url_key&quot;));
-vars.put(&quot;configurable_product_1_name&quot;, configurableList.get(&quot;title&quot;));
+//number = (int)(Math.random() * props.get(&quot;configurable_products_list&quot;).size());
+//configurableList = props.get(&quot;configurable_products_list&quot;).get(number);
+//vars.put(&quot;configurable_product_1_url_key&quot;, configurableList.get(&quot;url_key&quot;));
+//vars.put(&quot;configurable_product_1_name&quot;, configurableList.get(&quot;title&quot;));
 
 vars.put(&quot;category_url_key&quot;, props.get(&quot;category_url_key&quot;));
 vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stringProp>
@@ -1142,7 +1142,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 View(CatProdBrows)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Configurable Product 1 View(CatProdBrows)" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
