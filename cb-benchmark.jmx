@@ -729,8 +729,8 @@ productList.add(productMap);                 </stringProp>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract manage customers key" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">manage_customers_key</stringProp>
-            <stringProp name="RegexExtractor.regex">&lt;a href=&quot;${base_path}${admin_path}/customer/index/key/([^&apos;&quot;]+)&quot;</stringProp>
-            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;a href=&quot;(.*)/customer/index/key/(.+)/&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$2$</stringProp>
             <stringProp name="RegexExtractor.default"></stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
