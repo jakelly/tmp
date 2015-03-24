@@ -39,7 +39,7 @@
           </elementProp>
           <elementProp name="view_product_add_to_cart_percent" elementType="Argument">
             <stringProp name="Argument.name">view_product_add_to_cart_percent</stringProp>
-            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,60)}</stringProp>
+            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,50)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="view_catalog_percent" elementType="Argument">
@@ -49,12 +49,12 @@
           </elementProp>
           <elementProp name="guest_checkout_percent" elementType="Argument">
             <stringProp name="Argument.name">guest_checkout_percent</stringProp>
-            <stringProp name="Argument.value">${__P(guest_checkout_percent,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(guest_checkout_percent,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="customer_checkout_percent" elementType="Argument">
             <stringProp name="Argument.name">customer_checkout_percent</stringProp>
-            <stringProp name="Argument.value">${__P(customer_checkout_percent,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(customer_checkout_percent,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loops" elementType="Argument">
@@ -4490,7 +4490,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">${report_save_path}/results-tree.log</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Errors Tree" enabled="true">
