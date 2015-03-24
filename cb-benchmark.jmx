@@ -39,7 +39,7 @@
           </elementProp>
           <elementProp name="view_product_add_to_cart_percent" elementType="Argument">
             <stringProp name="Argument.name">view_product_add_to_cart_percent</stringProp>
-            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,62)}</stringProp>
+            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,60)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="view_catalog_percent" elementType="Argument">
@@ -49,12 +49,12 @@
           </elementProp>
           <elementProp name="guest_checkout_percent" elementType="Argument">
             <stringProp name="Argument.name">guest_checkout_percent</stringProp>
-            <stringProp name="Argument.value">${__P(guest_checkout_percent,4)}</stringProp>
+            <stringProp name="Argument.value">${__P(guest_checkout_percent,5)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="customer_checkout_percent" elementType="Argument">
             <stringProp name="Argument.name">customer_checkout_percent</stringProp>
-            <stringProp name="Argument.value">${__P(customer_checkout_percent,4)}</stringProp>
+            <stringProp name="Argument.value">${__P(customer_checkout_percent,5)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loops" elementType="Argument">
@@ -260,7 +260,7 @@ props.put(&quot;category_name&quot;, vars.get(&quot;category_name&quot;));</stri
           <stringProp name="ForeachController.returnVal">simple_products_url_key</stringProp>
           <boolProp name="ForeachController.useSeparator">true</boolProp>
           <stringProp name="ForeachController.startIndex">1</stringProp>
-          <stringProp name="ForeachController.endIndex">3</stringProp>
+          <stringProp name="ForeachController.endIndex">50</stringProp>
         </ForeachController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request: Open Simple product" enabled="true">
@@ -302,6 +302,15 @@ props.put(&quot;category_name&quot;, vars.get(&quot;category_name&quot;));</stri
               <boolProp name="XPathExtractor.namespace">false</boolProp>
             </XPathExtractor>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="RegEx Extractor: Add to Cart" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">simple_product_add_to_cart</stringProp>
+              <stringProp name="RegexExtractor.regex">&lt;span&gt;(Add to Cart)?&lt;/span&gt;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">x</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Responce Assertion: Assert id" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="89649215">^\d+$</stringProp>
@@ -322,17 +331,6 @@ props.put(&quot;category_name&quot;, vars.get(&quot;category_name&quot;));</stri
               <intProp name="Assertion.test_type">1</intProp>
               <stringProp name="Assertion.scope">variable</stringProp>
               <stringProp name="Scope.variable">simple_product_title</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Responce Assertion: Assert url key" enabled="false">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="484395188">^[a-z0-9-]+$</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">1</intProp>
-              <stringProp name="Assertion.scope">variable</stringProp>
-              <stringProp name="Scope.variable">simple_products_url_key</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
@@ -357,14 +355,18 @@ if (1 == Integer.parseInt(vars.get(&quot;simple_products_counter&quot;))) {
     productList = props.get(&quot;simple_products_list&quot;);
 }
 
-// Create product map
-Map productMap = new HashMap();
-productMap.put(&quot;id&quot;, vars.get(&quot;simple_product_id&quot;)); 
-productMap.put(&quot;title&quot;, vars.get(&quot;simple_product_title&quot;));
-productMap.put(&quot;url_key&quot;, vars.get(&quot;simple_products_url_key&quot;));
-
-// Collect products map in products list
-productList.add(productMap);                        </stringProp>
+if (vars.get(&quot;simple_product_add_to_cart&quot;).toString().trim().equalsIgnoreCase(&quot;Add to Cart&quot;)) {
+	// Create product map
+	Map productMap = new HashMap();
+	productMap.put(&quot;id&quot;, vars.get(&quot;simple_product_id&quot;)); 
+	productMap.put(&quot;title&quot;, vars.get(&quot;simple_product_title&quot;));
+	productMap.put(&quot;url_key&quot;, vars.get(&quot;simple_products_url_key&quot;));
+	
+	// Collect products map in products list
+	productList.add(productMap);
+} else {
+	System.out.println(&quot;Skipping &apos;&quot; + vars.get(&quot;simple_product_title&quot;).toString() + &quot;&apos; because it cannot be added to cart.&quot;);	
+}</stringProp>
             <stringProp name="BeanShellSampler.filename"></stringProp>
             <stringProp name="BeanShellSampler.parameters"></stringProp>
             <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
@@ -856,7 +858,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="491345365">&lt;title&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
+              <stringProp name="-733853442">&lt;h1&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -888,7 +890,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1316109098">&lt;title&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
+              <stringProp name="1753659391">&lt;h1&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1067,7 +1069,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="491345365">&lt;title&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
+              <stringProp name="-733853442">&lt;h1&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1150,7 +1152,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="170585713">${simple_product_1_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1190,7 +1192,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1316109098">&lt;title&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
+              <stringProp name="1753659391">&lt;h1&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1273,7 +1275,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1196077712">${simple_product_2_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1324,7 +1326,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Guest Checkout" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Guest Checkout" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1530,7 +1532,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="491345365">&lt;title&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
+              <stringProp name="-733853442">&lt;h1&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1613,7 +1615,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="170585713">${simple_product_1_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1653,7 +1655,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1316109098">&lt;title&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
+              <stringProp name="1753659391">&lt;h1&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1736,7 +1738,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1196077712">${simple_product_2_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -2875,7 +2877,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Customer Checkout" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Customer Checkout" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -3097,7 +3099,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="491345365">&lt;title&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
+              <stringProp name="-733853442">&lt;h1&gt;${__escapeHtml(${simple_product_1_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -3180,7 +3182,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="170585713">${simple_product_1_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -3220,7 +3222,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1316109098">&lt;title&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
+              <stringProp name="1753659391">&lt;h1&gt;${__escapeHtml(${simple_product_2_name})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -3303,7 +3305,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Success message is displayed" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1196077712">${simple_product_2_name}&lt;/a&gt; was added to your cart</stringProp>
+              <stringProp name="2056941743">&lt;/a&gt; was added to your cart</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -4613,7 +4615,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
         <stringProp name="filename">${report_save_path}/aggregate-graph.log</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="false">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -5042,7 +5044,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
         <boolProp name="exclude_checkbox_state">false</boolProp>
       </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
       <hashTree/>
-      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Response Times Over Time" enabled="false">
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ResponseTimesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Response Times Over Time" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -5165,7 +5167,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
         <boolProp name="exclude_checkbox_state">false</boolProp>
       </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
       <hashTree/>
-      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ThroughputVsThreadsGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transaction Throughput vs Threads" enabled="true">
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.ThroughputVsThreadsGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transaction Throughput vs Threads" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
