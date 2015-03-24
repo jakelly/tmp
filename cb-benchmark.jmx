@@ -1069,7 +1069,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-733853442">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
+              <stringProp name="-1920161092">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1192,7 +1192,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1753659391">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
+              <stringProp name="577854845">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1532,7 +1532,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-733853442">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
+              <stringProp name="-1920161092">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1655,7 +1655,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1753659391">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
+              <stringProp name="577854845">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -3099,7 +3099,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-733853442">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
+              <stringProp name="-1920161092">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_1_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -3222,7 +3222,7 @@ if (emailsCount &lt; 1) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion: Assert page title and stock status" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1753659391">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
+              <stringProp name="577854845">&lt;h1&gt;${__escapeOroRegexpChars(${__escapeHtml(${simple_product_2_name})})}</stringProp>
               <stringProp name="907918387">&lt;span&gt;Add to Cart&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -4483,6 +4483,39 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Errors Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
       <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
@@ -4962,7 +4995,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
         <boolProp name="exclude_checkbox_state">false</boolProp>
       </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
       <hashTree/>
-      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.LatenciesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Response Latencies Over Time" enabled="false">
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.LatenciesOverTimeGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Response Latencies Over Time" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
