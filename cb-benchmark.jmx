@@ -39,17 +39,17 @@
           </elementProp>
           <elementProp name="view_product_add_to_cart_percent" elementType="Argument">
             <stringProp name="Argument.name">view_product_add_to_cart_percent</stringProp>
-            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,50)}</stringProp>
+            <stringProp name="Argument.value">${__P(view_product_add_to_cart_percent,30)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="view_catalog_percent" elementType="Argument">
             <stringProp name="Argument.name">view_catalog_percent</stringProp>
-            <stringProp name="Argument.value">${__P(view_catalog_percent,30)}</stringProp>
+            <stringProp name="Argument.value">${__P(view_catalog_percent,45)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="guest_checkout_percent" elementType="Argument">
             <stringProp name="Argument.name">guest_checkout_percent</stringProp>
-            <stringProp name="Argument.value">${__P(guest_checkout_percent,10)}</stringProp>
+            <stringProp name="Argument.value">${__P(guest_checkout_percent,15)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="customer_checkout_percent" elementType="Argument">
