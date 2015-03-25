@@ -183,7 +183,8 @@ props.remove(&quot;category_name&quot;);
 props.remove(&quot;simple_products_list&quot;);
 props.remove(&quot;configurable_products_list&quot;);
 props.remove(&quot;users&quot;);
-props.remove(&quot;customer_emails_list&quot;);</stringProp>
+props.remove(&quot;customer_emails_list&quot;);
+props.remove(&quot;customer_index&quot;);</stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
           <stringProp name="BeanShellSampler.parameters"></stringProp>
           <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
@@ -3026,11 +3027,18 @@ vars.put(&quot;category_url_key&quot;, props.get(&quot;category_url_key&quot;));
 vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));
 
 emailsCount = props.get(&quot;customer_emails_list&quot;).size();
-print(emailsCount);
-number = (int)(Math.random() * emailsCount);
+customerIndex = 0;
+if (props.get(&quot;customer_index&quot;) != null) {
+	customerIndex = (int)props.get(&quot;customer_index&quot;);
+}
+if (customerIndex &lt; 0 || customerIndex &gt;= emailsCount) {
+	customerIndex = 0;
+}
+System.out.println(&quot;Customer index: &quot; + customerIndex);
 emails = props.get(&quot;customer_emails_list&quot;);
-email = emails.get(number);
+email = emails.get(customerIndex);
 vars.put(&quot;customer_email&quot;, email);
+props.put(&quot;customer_index&quot;, (customerIndex + 1));
 </stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
           <stringProp name="BeanShellSampler.parameters"></stringProp>
