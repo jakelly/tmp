@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+<jmeterTestPlan version="1.2" properties="2.7" jmeter="2.12 r1636949">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Toolkit" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -24,7 +24,7 @@
           </elementProp>
           <elementProp name="ramp_period" elementType="Argument">
             <stringProp name="Argument.name">ramp_period</stringProp>
-            <stringProp name="Argument.value">${__P(ramp_period,60)}</stringProp>
+            <stringProp name="Argument.value">${__P(ramp_period,120)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="orders" elementType="Argument">
@@ -34,7 +34,7 @@
           </elementProp>
           <elementProp name="users" elementType="Argument">
             <stringProp name="Argument.name">users</stringProp>
-            <stringProp name="Argument.value">${__P(users,25)}</stringProp>
+            <stringProp name="Argument.value">${__P(users,50)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="view_product_add_to_cart_percent" elementType="Argument">
@@ -94,7 +94,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">300</stringProp>
+            <stringProp name="Argument.value">3600</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -4602,7 +4602,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename">${report_save_path}/summary-report.log</stringProp>
+        <stringProp name="filename">${report_save_path}/summary-report.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="Detailed URLs report" enabled="false">
@@ -4734,7 +4734,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">${report_save_path}/aggregate-report.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="false">
@@ -4866,7 +4866,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">${report_save_path}/active-threads-over-time.csv</stringProp>
         <longProp name="interval_grouping">500</longProp>
         <boolProp name="graph_aggregated">false</boolProp>
         <stringProp name="include_sample_labels"></stringProp>
@@ -5163,7 +5163,7 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">${report_save_path}/response-times-over-time.csv</stringProp>
         <longProp name="interval_grouping">500</longProp>
         <boolProp name="graph_aggregated">false</boolProp>
         <stringProp name="include_sample_labels"></stringProp>
