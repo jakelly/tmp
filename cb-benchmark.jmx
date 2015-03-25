@@ -94,7 +94,7 @@
           </elementProp>
           <elementProp name="duration" elementType="Argument">
             <stringProp name="Argument.name">duration</stringProp>
-            <stringProp name="Argument.value">360</stringProp>
+            <stringProp name="Argument.value">300</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -3027,17 +3027,11 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));
 
 emailsCount = props.get(&quot;customer_emails_list&quot;).size();
 print(emailsCount);
-if (emailsCount &lt; 1) {
-    log.error(&quot;You have to increase customers qty for running &apos;Customer Checkout&apos; thread.&quot;);
-    System.out.println(&quot;You have to increase customers qty for running &apos;Customer Checkout&apos; thread.&quot;);
-    SampleResult.setStopTest(true);    
-} else {
-    emails = props.get(&quot;customer_emails_list&quot;);
-    email = emails.get(emailsCount - 1);
-    emails.remove(email);
-    props.put(&quot;customer_emails_list&quot;, emails);
-    vars.put(&quot;customer_email&quot;, email);
-}</stringProp>
+number = (int)(Math.random() * emailsCount);
+emails = props.get(&quot;customer_emails_list&quot;);
+email = emails.get(number);
+vars.put(&quot;customer_email&quot;, email);
+</stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
           <stringProp name="BeanShellSampler.parameters"></stringProp>
           <boolProp name="BeanShellSampler.resetInterpreter">true</boolProp>
