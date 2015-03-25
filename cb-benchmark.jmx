@@ -321,6 +321,15 @@ props.put(&quot;category_name&quot;, vars.get(&quot;category_name&quot;));</stri
               <stringProp name="RegexExtractor.match_number">1</stringProp>
             </RegexExtractor>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="RegEx Extractor: Configurable" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">simple_product_configurable</stringProp>
+              <stringProp name="RegexExtractor.regex">configurable_product</stringProp>
+              <stringProp name="RegexExtractor.template">$0$</stringProp>
+              <stringProp name="RegexExtractor.default">x</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Responce Assertion: Assert id" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="89649215">^\d+$</stringProp>
@@ -365,7 +374,10 @@ if (1 == Integer.parseInt(vars.get(&quot;simple_products_counter&quot;))) {
     productList = props.get(&quot;simple_products_list&quot;);
 }
 
-if (vars.get(&quot;simple_product_add_to_cart&quot;).toString().trim().equalsIgnoreCase(&quot;Add to Cart&quot;)) {
+boolean inStock = vars.get(&quot;simple_product_add_to_cart&quot;).toString().trim().equalsIgnoreCase(&quot;Add to Cart&quot;);
+boolean isConfigurable = vars.get(&quot;simple_product_configurable&quot;).toString().trim().equalsIgnoreCase(&quot;configurable_product&quot;);
+
+if (inStock &amp;&amp; !isConfigurable) {
 	// Create product map
 	Map productMap = new HashMap();
 	productMap.put(&quot;id&quot;, vars.get(&quot;simple_product_id&quot;)); 
@@ -374,9 +386,12 @@ if (vars.get(&quot;simple_product_add_to_cart&quot;).toString().trim().equalsIgn
 	
 	// Collect products map in products list
 	productList.add(productMap);
+} else if (isConfigurable) {
+	System.out.println(&quot;Skipping &apos;&quot; + vars.get(&quot;simple_product_title&quot;).toString() + &quot;&apos; because it is configurable.&quot;);	
 } else {
 	System.out.println(&quot;Skipping &apos;&quot; + vars.get(&quot;simple_product_title&quot;).toString() + &quot;&apos; because it cannot be added to cart.&quot;);	
-}</stringProp>
+}
+</stringProp>
             <stringProp name="BeanShellSampler.filename"></stringProp>
             <stringProp name="BeanShellSampler.parameters"></stringProp>
             <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
@@ -1370,7 +1385,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
             </elementProp>
             <elementProp name="fullname" elementType="Argument">
               <stringProp name="Argument.name">fullname</stringProp>
-              <stringProp name="Argument.value">Name Lastname</stringProp>
+              <stringProp name="Argument.value">John Test</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="street" elementType="Argument">
@@ -1773,7 +1788,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1841,7 +1856,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/emailExists/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1880,7 +1895,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/postcodeAddress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1989,7 +2004,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2098,7 +2113,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2214,7 +2229,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2253,7 +2268,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2376,7 +2391,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShippingMethod/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2415,7 +2430,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2587,7 +2602,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/savePayment/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2626,7 +2641,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2798,7 +2813,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveOrder/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2829,7 +2844,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/success/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2921,7 +2936,7 @@ vars.put(&quot;category_name&quot;, props.get(&quot;category_name&quot;));</stri
             </elementProp>
             <elementProp name="fullname" elementType="Argument">
               <stringProp name="Argument.name">fullname</stringProp>
-              <stringProp name="Argument.value">Name Lastname</stringProp>
+              <stringProp name="Argument.value">John Test</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="street" elementType="Argument">
@@ -3470,7 +3485,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/emailExists/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -3509,7 +3524,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/postcodeAddress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -3604,7 +3619,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -3699,7 +3714,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -3801,7 +3816,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShipping/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -3840,7 +3855,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -3949,7 +3964,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveShippingMethod/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -3988,7 +4003,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -4146,7 +4161,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/savePayment/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -4185,7 +4200,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}anattadesign_awesomecheckout/onepage/progress/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -4343,7 +4358,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/saveOrder/</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -4374,7 +4389,7 @@ if (emailsCount &lt; 1) {
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">${base_path}checkout/onepage/success/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -4471,12 +4486,12 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <success>true</success>
             <label>true</label>
             <code>true</code>
-            <message>true</message>
+            <message>false</message>
             <threadName>true</threadName>
             <dataType>true</dataType>
             <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
+            <assertions>false</assertions>
+            <subresults>false</subresults>
             <responseData>false</responseData>
             <samplerData>false</samplerData>
             <xml>false</xml>
@@ -4484,13 +4499,14 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <responseHeaders>false</responseHeaders>
             <requestHeaders>false</requestHeaders>
             <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <url>true</url>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename">${report_save_path}/results-tree.log</stringProp>
+        <stringProp name="filename">${report_save_path}/results-tree.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Errors Tree" enabled="true">
@@ -4510,20 +4526,21 @@ props.remove(&quot;customer_emails_list&quot;);</stringProp>
             <encoding>false</encoding>
             <assertions>true</assertions>
             <subresults>true</subresults>
-            <responseData>false</responseData>
+            <responseData>true</responseData>
             <samplerData>false</samplerData>
             <xml>false</xml>
-            <fieldNames>false</fieldNames>
+            <fieldNames>true</fieldNames>
             <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
+            <requestHeaders>true</requestHeaders>
             <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
+            <url>true</url>
             <threadCounts>true</threadCounts>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">${report_save_path}/errors-tree.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
